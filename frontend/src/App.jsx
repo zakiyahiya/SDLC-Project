@@ -30,7 +30,7 @@ function App() {
     'Create a Python function to sort an array'
   ];
 
-  const languages = ['javascript', 'python', 'java', 'typescript', 'go', 'rust', 'php', 'ruby'];
+  const languages = ['javascript', 'c++', 'python', 'java', 'typescript', 'go', 'rust', 'php', 'ruby'];
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -225,53 +225,70 @@ function App() {
     </div>
   );
 
-  const renderCodeGenResults = (results) => (
-    <div className="codegen-container">
-      <div className="result-card codegen-card">
-        <div className="card-header">
-          <span className="language-badge">{results.language}</span>
-        </div>
-        <div className="card-body">
-          <div className="codegen-section">
-            <div className="section-header">
-              <h3>Generated Code</h3>
-              <button 
-                className="copy-button"
-                data-copy="code"
-                onClick={() => copyToClipboard(results.code, 'code')}
-                title="Copy code to clipboard"
-              >
-                📋 Copy Code
-              </button>
-            </div>
-            <pre className="code-block">
-              <code>{results.code}</code>
-            </pre>
+  const formatCode = (code) => {
+    // Format code by adding line breaks after common patterns
+    return code
+      .replace(/;\s*/g, ';\n')           // Line break after semicolons
+      .replace(/\{\s*/g, '{\n')          // Line break after opening braces
+      .replace(/\}\s*/g, '\n}\n')        // Line break before/after closing braces
+      .replace(/import\s+/g, '\nimport ') // Line break before imports
+      .split('\n')
+      .filter(line => line.trim())       // Remove empty lines
+      .map(line => line.trim())          // Trim each line
+      .join('\n');
+  };
+
+  const renderCodeGenResults = (results) => {
+    const formattedCode = formatCode(results.code);
+    
+    return (
+      <div className="codegen-container">
+        <div className="result-card codegen-card">
+          <div className="card-header">
+            <span className="language-badge">{results.language}</span>
           </div>
-          <div className="codegen-section">
-            <h3>Explanation</h3>
-            <p>{results.explanation}</p>
-          </div>
-          <div className="codegen-section">
-            <div className="section-header">
-              <h3>Usage</h3>
-              <button 
-                className="copy-button"
-                data-copy="usage"
-                onClick={() => copyToClipboard(results.usage, 'usage')}
-                title="Copy usage to clipboard"
-              >
-                📋 Copy Usage
-              </button>
+          <div className="card-body">
+            <div className="codegen-section">
+              <div className="section-header">
+                <h3>Generated Code</h3>
+                <button
+                  className="copy-button"
+                  data-copy="code"
+                  onClick={() => copyToClipboard(formattedCode, 'code')}
+                  title="Copy code to clipboard"
+                >
+                  📋 Copy Code
+                </button>
+              </div>
+              <pre className="code-block">
+                <code>{formattedCode}</code>
+              </pre>
             </div>
-            <pre className="usage-block">
-              <code>{results.usage}</code>
-            </pre>
+            <div className="codegen-section">
+              <h3>Explanation</h3>
+              <p>{results.explanation}</p>
+            </div>
+            <div className="codegen-section">
+              <div className="section-header">
+                <h3>Usage</h3>
+                <button
+                  className="copy-button"
+                  data-copy="usage"
+                  onClick={() => copyToClipboard(results.usage, 'usage')}
+                  title="Copy usage to clipboard"
+                >
+                  📋 Copy Usage
+                </button>
+              </div>
+              <pre className="usage-block">
+                <code>{results.usage}</code>
+              </pre>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  );
+    );
+  };
 
   const renderResults = () => {
     if (!result) return null;

@@ -629,16 +629,18 @@ body {
   color: #e2e8f0;
   padding: 1rem;
   border-radius: 0.5rem;
-  overflow-x: auto;
+  overflow-x: hidden;
   font-family: 'Courier New', Courier, monospace;
   font-size: 0.875rem;
   line-height: 1.6;
-  white-space: pre;
+  white-space: pre-wrap;
+  word-wrap: break-word;
 }
 
 .code-block code {
   display: block;
-  white-space: pre;
+  white-space: pre-wrap;
+  word-wrap: break-word;
 }
 
 .usage-block {
