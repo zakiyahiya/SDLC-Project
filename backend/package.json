@@ -1,0 +1,26 @@
+{
+  "name": "sdlc-issue-analyzer-backend",
+  "version": "1.0.0",
+  "description": "Backend API for SDLC Issue Analysis Assistant powered by Bob AI",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "dev": "node server.js",
+    "start": "node server.js"
+  },
+  "keywords": [
+    "sdlc",
+    "issue-analysis",
+    "bob-ai",
+    "debugging"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2",
+    "cors": "^2.8.5"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

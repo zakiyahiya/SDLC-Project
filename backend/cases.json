@@ -1,0 +1,142 @@
+[
+  {
+    "id": "CASE-001",
+    "symptom": "Users unable to login after password reset, receiving 401 Unauthorized",
+    "module": "Authentication",
+    "rootCause": "JWT token expiration time not updated in cache after password change",
+    "fix": "Invalidate all user sessions in Redis cache when password is reset"
+  },
+  {
+    "id": "CASE-002",
+    "symptom": "API Gateway returns 504 timeout for requests taking longer than 30 seconds",
+    "module": "API Gateway",
+    "rootCause": "Default timeout configuration too aggressive for long-running operations",
+    "fix": "Increase gateway timeout to 60s and implement async processing for heavy operations"
+  },
+  {
+    "id": "CASE-003",
+    "symptom": "Payment transactions randomly fail with 'duplicate transaction' error",
+    "module": "Payment",
+    "rootCause": "Race condition in idempotency key generation under high concurrency",
+    "fix": "Use distributed lock (Redis) before generating idempotency keys"
+  },
+  {
+    "id": "CASE-004",
+    "symptom": "Database queries slow down significantly during peak hours",
+    "module": "Database",
+    "rootCause": "Missing composite index on frequently queried columns (user_id, created_at)",
+    "fix": "Add composite index: CREATE INDEX idx_user_created ON orders(user_id, created_at DESC)"
+  },
+  {
+    "id": "CASE-005",
+    "symptom": "Cache hit rate drops to 20% causing database overload",
+    "module": "Cache",
+    "rootCause": "Cache eviction policy set to LRU with insufficient memory allocation",
+    "fix": "Increase Redis memory limit and switch to LFU eviction policy for better hit rates"
+  },
+  {
+    "id": "CASE-006",
+    "symptom": "Background jobs stuck in pending state and never execute",
+    "module": "Background Jobs",
+    "rootCause": "Worker processes crash silently due to unhandled promise rejections",
+    "fix": "Add global error handlers and implement job retry mechanism with exponential backoff"
+  },
+  {
+    "id": "CASE-007",
+    "symptom": "File uploads fail intermittently with 'connection reset' error",
+    "module": "File Storage",
+    "rootCause": "S3 multipart upload not properly handling network interruptions",
+    "fix": "Implement resumable uploads with chunk verification and automatic retry logic"
+  },
+  {
+    "id": "CASE-008",
+    "symptom": "Email notifications delayed by 2-3 hours during high traffic",
+    "module": "Notifications",
+    "rootCause": "Single-threaded email queue processor cannot keep up with volume",
+    "fix": "Scale to multiple worker instances and implement priority-based queue processing"
+  },
+  {
+    "id": "CASE-009",
+    "symptom": "Search returns stale results showing deleted items",
+    "module": "Search",
+    "rootCause": "Elasticsearch index not synchronized with database deletions",
+    "fix": "Implement CDC (Change Data Capture) pipeline to sync deletions in real-time"
+  },
+  {
+    "id": "CASE-010",
+    "symptom": "Users can access resources they shouldn't have permissions for",
+    "module": "Authorization",
+    "rootCause": "Permission checks bypass when using cached user roles after role changes",
+    "fix": "Invalidate user permission cache immediately on role updates and add audit logging"
+  },
+  {
+    "id": "CASE-011",
+    "symptom": "Monthly reports generation times out after 5 minutes",
+    "module": "Reporting",
+    "rootCause": "Report queries scan entire table without date range filters",
+    "fix": "Add partition pruning on date columns and generate reports asynchronously"
+  },
+  {
+    "id": "CASE-012",
+    "symptom": "CSV import fails silently for files larger than 10MB",
+    "module": "Data Import",
+    "rootCause": "Request body size limit set to 10MB in Express middleware",
+    "fix": "Increase body-parser limit to 50MB and implement streaming CSV parser"
+  },
+  {
+    "id": "CASE-013",
+    "symptom": "Third-party API integration returns 429 rate limit errors",
+    "module": "Integrations",
+    "rootCause": "No rate limiting or backoff strategy implemented in API client",
+    "fix": "Add token bucket rate limiter and exponential backoff with jitter"
+  },
+  {
+    "id": "CASE-014",
+    "symptom": "Frontend dashboard shows incorrect data after page refresh",
+    "module": "Frontend",
+    "rootCause": "React state not properly synchronized with server state on mount",
+    "fix": "Implement proper data fetching in useEffect with dependency array"
+  },
+  {
+    "id": "CASE-015",
+    "symptom": "Session expires unexpectedly after 5 minutes of activity",
+    "module": "Authentication",
+    "rootCause": "Sliding session window not implemented, using fixed expiration",
+    "fix": "Update session TTL on each authenticated request to implement sliding window"
+  },
+  {
+    "id": "CASE-016",
+    "symptom": "API returns 500 error when special characters in query parameters",
+    "module": "API Gateway",
+    "rootCause": "URL encoding not handled properly in gateway routing logic",
+    "fix": "Add proper URL decoding middleware and validate input encoding"
+  },
+  {
+    "id": "CASE-017",
+    "symptom": "Payment webhook events processed multiple times causing duplicate charges",
+    "module": "Payment",
+    "rootCause": "Webhook handler not idempotent, no deduplication mechanism",
+    "fix": "Store processed webhook IDs in database and check before processing"
+  },
+  {
+    "id": "CASE-018",
+    "symptom": "Database connection pool exhausted during traffic spikes",
+    "module": "Database",
+    "rootCause": "Connection pool size too small and connections not released properly",
+    "fix": "Increase pool size to 50 and ensure all queries use try-finally to release connections"
+  },
+  {
+    "id": "CASE-019",
+    "symptom": "Cache stampede occurs when popular keys expire simultaneously",
+    "module": "Cache",
+    "rootCause": "All cache entries set with same TTL causing synchronized expiration",
+    "fix": "Add random jitter to TTL values and implement probabilistic early expiration"
+  },
+  {
+    "id": "CASE-020",
+    "symptom": "Background job queue grows unbounded causing memory issues",
+    "module": "Background Jobs",
+    "rootCause": "No max queue size limit and failed jobs not moved to dead letter queue",
+    "fix": "Set max queue size to 10000 and implement DLQ for failed jobs after 3 retries"
+  }
+]

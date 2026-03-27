@@ -1,0 +1,11 @@
+Using Ollama API at: http://9.60.223.58:11434
+Using model: codellama
+Cases loaded: 20
+═══════════════════════════════════════════════════════
+SDLC Issue Analysis Assistant - Backend Server
+═══════════════════════════════════════════════════════
+Ollama API URL : http://9.60.223.58:11434
+Ollama Model   : codellama
+Cases loaded: 20
+Server ready: http://localhost:3001
+═══════════════════════════════════════════════════════
