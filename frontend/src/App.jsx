@@ -315,7 +315,6 @@ function App() {
         <div className="header-content">
           <h1>SDLC Issue Analysis Assistant</h1>
           <p className="subtitle">AI-powered debugging and root cause analysis</p>
-          <span className="bob-badge">Powered by Ollama</span>
         </div>
       </header>
 

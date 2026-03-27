@@ -34,7 +34,6 @@ body {
 .subtitle {
   font-size: 1rem;
   color: #94a3b8;
-  margin-bottom: 1rem;
 }
 
 .bob-badge {
@@ -627,20 +626,45 @@ body {
 .code-block {
   background-color: #1e293b;
   color: #e2e8f0;
-  padding: 1rem;
+  padding: 1.5rem;
   border-radius: 0.5rem;
   overflow-x: hidden;
-  font-family: 'Courier New', Courier, monospace;
+  font-family: 'Fira Code', 'Courier New', Courier, monospace;
   font-size: 0.875rem;
-  line-height: 1.6;
-  white-space: pre-wrap;
+  line-height: 1.8;
+  white-space: pre;
   word-wrap: break-word;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
 }
 
 .code-block code {
   display: block;
-  white-space: pre-wrap;
+  white-space: pre;
   word-wrap: break-word;
+}
+
+/* Syntax Highlighting Colors */
+.code-block .keyword {
+  color: #c792ea;
+  font-weight: 600;
+}
+
+.code-block .string {
+  color: #c3e88d;
+}
+
+.code-block .comment {
+  color: #546e7a;
+  font-style: italic;
+}
+
+.code-block .number {
+  color: #f78c6c;
+}
+
+.code-block .function {
+  color: #82aaff;
+  font-weight: 500;
 }
 
 .usage-block {
